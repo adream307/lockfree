@@ -15,6 +15,7 @@ typedef long long int_2t;
 #define sync_inc_t(val_ptr)						__sync_fetch_and_add((val_ptr),1)
 #define sync_dec_t(val_ptr)						__sync_fetch_and_sub((val_ptr),1)
 #define sync_cas_2t(val_ptr,old_val,new_val)	__sync_bool_compare_and_swap((val_ptr),(old_val),(new_val))
+#define sync_write_read_fence()					__sync_synchronize()
 
 #define int_2t_low_part_ptr(x)		((int_t*)(&(x)))
 #define int_2t_high_part_ptr(x)		(((int_t*)(&(x)))+1)

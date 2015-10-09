@@ -17,6 +17,7 @@ typedef long long int_2t;
 #define sync_inc_t(val_ptr)						__sync_fetch_and_add((val_ptr),1)
 #define sync_dec_t(val_ptr)						__sync_fetch_and_sub((val_ptr),1)
 #define sync_cas_2t(val_ptr,old_val,new_val)	__sync_bool_compare_and_swap((val_ptr),(old_val),(new_val))
+#define sync_write_read_fence()					__sync_synchronize()
 
 #define int_2t_low_part_ptr(x)		((int_t*)(&(x)))
 #define int_2t_high_part_ptr(x)		(((int_t*)(&(x)))+1)
@@ -182,6 +183,7 @@ do{																								\
 //void lfrq_queue_enqueue_data(lfrq_queue_t *_f, const void*_p, int_r); //if success, _r=0, else _r=-1;
 #define lfrq_enqueue_data(_f,_p,_r)														\
 do{																								\
+	sync_write_read_fence();																	\
 	int_t index = (((void*)(_p)) - (_f)->m_data_queue)/((_f)->m_type_size);						\
 	for(;;){																					\
 		int_2t tail = sync_get_2t(&((_f)->m_data_tail));										\

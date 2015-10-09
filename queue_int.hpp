@@ -48,7 +48,7 @@ public:
 	{
 		if(m_cap>0) delete [] m_data;
 	}
-	bool enqueue(int_t val)
+	bool enqueue(const int_t val)
 	{
 		while(true){
 			int_2t tail = sync_get_2t(&m_tail);

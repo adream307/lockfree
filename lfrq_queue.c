@@ -134,6 +134,7 @@ int lfrq_queue_dequeue_free(lfrq_queue_t *f, void**p)
 //enqueue one data node back to the tail
 int lfrq_queue_enqueue_data(lfrq_queue_t *f, const void*p)
 {
+	sync_write_read_fence();
 	int_t index = (p - f->m_data_queue)/(f->m_type_size);
 	for(;;){
 		int_2t tail = sync_get_2t(&(f->m_data_tail));
